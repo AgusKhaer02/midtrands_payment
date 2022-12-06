@@ -127,10 +127,30 @@ class Snap extends CI_Controller {
 
     public function finish()
     {
-    	$result = json_decode($this->input->post('result_data'));
-    	echo 'RESULT <br><pre>';
-    	var_dump($result);
-    	echo '</pre>' ;
+		// menggunakan true agar data menjadi array associative
+		
+    	$result = json_decode($this->input->post('result_data'), true);
+		// echo gettype($result);
+    	// echo 'RESULT <br><pre>';
+    	// echo $result;	
+    	// echo '</pre>' ;
 
+		$data = [
+			"order_id" => $result['order_id'],
+			"gross_amount" => $result['gross_amount'],
+			"payment_type" => $result['payment_type'],
+			"transaction_time" => $result['transaction_time'],
+			"bank" => $result['va_numbers'][0]['bank'],
+			"va_number" => $result['va_numbers'][0]['va_number'],
+			"pdf_url" => $result['pdf_url'],
+			"status_code" => $result['status_code'],
+		];
+
+		$simpan = $this->db->insert('transaksi', $data);
+		if ($simpan) {
+			echo "Sukses";
+		}else {
+			echo "Gagal";
+		}
     }
 }

@@ -47,7 +47,8 @@
             </div>
         </form>
 
-    <button class="btn btn-primary" id="pay-button">Pay!</button>
+    	<button class="btn btn-primary" id="pay-button">Pay!</button>
+	
     </div>
 
     <script type="text/javascript">
