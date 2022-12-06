@@ -38,7 +38,8 @@ class Snap extends CI_Controller {
 
 	public function spp()
 	{
-		$this->load->view('pembayaranspp');
+		$data['midtrans'] = $this->db->get('transaksi')->result();
+		$this->load->view('pembayaranspp', $data);
 	}
 
     public function token()
@@ -134,9 +135,12 @@ class Snap extends CI_Controller {
     	// echo 'RESULT <br><pre>';
     	// echo $result;	
     	// echo '</pre>' ;
-
+		$nama = $this->input->post('nama');
+		$kelas = $this->input->post('kelas');
 		$data = [
 			"order_id" => $result['order_id'],
+			"nama" => $nama,
+			"kelas" => $kelas,
 			"gross_amount" => $result['gross_amount'],
 			"payment_type" => $result['payment_type'],
 			"transaction_time" => $result['transaction_time'],
@@ -148,9 +152,17 @@ class Snap extends CI_Controller {
 
 		$simpan = $this->db->insert('transaksi', $data);
 		if ($simpan) {
-			echo "Sukses";
+			echo "		<script>
+			alert('Berhasil');
+			document.location.href = 'http://localhost/LATIHAN/midtrands_payment/index.php/snap/spp';
+			</script>";
+
+	
 		}else {
-			echo "Gagal";
+			echo "		<script>
+			alert('Gagal');
+			document.location.href = 'http://localhost/LATIHAN/midtrands_payment/index.php/snap/spp';
+			</script>";
 		}
     }
 }

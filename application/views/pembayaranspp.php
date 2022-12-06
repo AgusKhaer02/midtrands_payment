@@ -46,9 +46,41 @@
                 <input type="text" class="form-control" name="jmlBayar" id="jmlBayar">
             </div>
         </form>
-
+        <br>
     	<button class="btn btn-primary" id="pay-button">Pay!</button>
-	
+        <br><br>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <th>ORDER ID</th>
+                <th>NAMA</th>
+                <th>KELAS</th>
+                <th>GROSS AMOUNT</th>
+                <th>PAYMENT TYPE</th>
+                <th>BANK</th>
+                <th>VA NUMBER</th>
+                <th>TRANSACTION TIME </th>
+                <th>STATUS</th>
+                <th>AKSI</th>
+            </thead>
+            <tbody>
+                <?php foreach ($midtrans as $value): ?>
+                <tr>
+                    <td><?= $value->order_id?></td>
+                    <td><?= $value->nama?></td>
+                    <td><?= $value->kelas?></td>
+                    <td><?= "Rp " . number_format($value->gross_amount,2,',','.');?></td>
+                    <td><?= $value->payment_type?></td>
+                    <td><?= $value->bank?></td>
+                    <td><?= $value->va_number?></td>
+                    <td><?= $value->transaction_time?></td>
+                    <td><?= ($value->status_code == 200) ? "Success" : "Pending" ?></td>
+                    <td>
+                        <a href="<?= $value->pdf_url ?>" target="_blank" class="btn btn-success btn-sm">Download</a>    
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 
     <script type="text/javascript">
